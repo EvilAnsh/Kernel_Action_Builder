@@ -30,9 +30,9 @@ jobs:
           tag_name: ${{ github.event.inputs.tag_name }}
           name: ${{ github.event.inputs.release_name }}
           body: |
-            ## RM6785 Kernel Release
+            ## salaa Kernel Release
             
-            **Device:** Realme 6/6i/6s/7/Narzo 20 Pro
+            **Device:** Realme 7/Narzo 20 Pro/Narzo 30 4G
             
             ### Downloads
             
