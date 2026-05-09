@@ -1,6 +1,6 @@
-# RM6785 Kernel Build Workflow
+# salaa Kernel Build Workflow
 
-Automated GitHub Actions workflow for building RM6785 (Realme 6/6i/6s/7/Narzo 20 Pro) kernel with optional KernelSU support.
+Automated GitHub Actions workflow for building salaa (Realme 7/Narzo 20 Pro/Narzo 30 4G) kernel with optional KernelSU support.
 
 ## Features
 
@@ -13,13 +13,9 @@ Automated GitHub Actions workflow for building RM6785 (Realme 6/6i/6s/7/Narzo 20
 - ✅ Artifact uploads
 
 ## Supported Devices
-
-- Realme 6 (RMX2001)
-- Realme 6i (RMX2002)
-- Realme 6s (RMX2002)
-- Realme 7 (RMX2155)
+- Realme 7 (RMX2151, RMX2153, RMX2155 and RMX2163)
 - Realme Narzo 20 Pro (RMX2161)
-
+- Realme Narzo 30 4G (RMX2156)
 ## Setup
 
 ### 1. Fork/Create Repository
@@ -47,10 +43,10 @@ Edit `.github/workflows/build-kernel.yml` if you need to change:
 ### Manual Build
 
 1. Go to **Actions** tab in your repository
-2. Select **Build RM6785 Kernel** workflow
+2. Select **Build RUI3 (salaa) Kernel** workflow
 3. Click **Run workflow**
 4. Configure options:
-   - **Kernel Branch**: Enter the branch name (e.g., `main`, `master`, `lineage-21.0`)
+   - **Kernel Branch**: Enter the branch name (e.g., `bka`, `bka-ksu`)
    - **Enable KernelSU**: Check to enable KSU support
    - **KernelSU Variant**: Choose RKSU/xxKSU/SukiSU (only if KSU enabled)
    - **Enable SUSFS**: Check for SUSFS support (only works with RKSU/SukiSU)
@@ -66,16 +62,16 @@ Edit `.github/workflows/build-kernel.yml` if you need to change:
 
 Kernels are named automatically based on your configuration:
 
-- **Stock**: `Miku-RM6785-Stock-YYYYMMDD-HHMM.zip`
-- **KSU without SUSFS**: `Miku-RM6785-{VARIANT}-YYYYMMDD-HHMM.zip`
-- **KSU with SUSFS**: `Miku-RM6785-{VARIANT}-SUSFS-YYYYMMDD-HHMM.zip`
+- **Stock**: `Stormbreaker-salaa-Stock-YYYYMMDD-HHMM.zip`
+- **KSU without SUSFS**: `Stormbreaker-salaa-{VARIANT}-YYYYMMDD-HHMM.zip`
+- **KSU with SUSFS**: `Stormbreaker-salaa-{VARIANT}-SUSFS-YYYYMMDD-HHMM.zip`
 
 Examples:
-- `Miku-RM6785-Stock-20241218-1430.zip`
-- `Miku-RM6785-RKSU-20241218-1430.zip`
-- `Miku-RM6785-RKSU-SUSFS-20241218-1430.zip`
-- `Miku-RM6785-SukiSU-SUSFS-20241218-1430.zip`
-- `Miku-RM6785-xxKSU-20241218-1430.zip`
+- `Stormbreaker-salaa-Stock-20241218-1430.zip`
+- `Stormbreaker-salaa-RKSU-20241218-1430.zip`
+- `Stormbreaker-salaa-RKSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-salaa-SukiSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-salaa-xxKSU-20241218-1430.zip`
 
 ### KernelSU Variants
 
@@ -147,16 +143,16 @@ Compiled kernels are available as:
 
 1. **GitHub Artifacts**: In the workflow run (retained for 30 days)
 2. **Naming format**: 
-   - Stock: `Miku-RM6785-Stock-{TIMESTAMP}.zip`
-   - KSU: `Miku-RM6785-{VARIANT}-{TIMESTAMP}.zip`
-   - KSU+SUSFS: `Miku-RM6785-{VARIANT}-SUSFS-{TIMESTAMP}.zip`
+   - Stock: `Stormbreaker-salaa-Stock-{TIMESTAMP}.zip`
+   - KSU: `Stormbreaker-salaa-{VARIANT}-{TIMESTAMP}.zip`
+   - KSU+SUSFS: `Stormbreaker-salaa-{VARIANT}-SUSFS-{TIMESTAMP}.zip`
 
 Examples:
-- `Miku-RM6785-Stock-20241218-1430.zip`
-- `Miku-RM6785-RKSU-20241218-1430.zip`
-- `Miku-RM6785-RKSU-SUSFS-20241218-1430.zip`
-- `Miku-RM6785-xxKSU-20241218-1430.zip`
-- `Miku-RM6785-SukiSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-salaa-Stock-20241218-1430.zip`
+- `Stormbreaker-salaa-RKSU-20241218-1430.zip`
+- `Stormbreaker-salaa-RKSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-salaa-xxKSU-20241218-1430.zip`
+- `Stormbreaker-salaa-SukiSU-SUSFS-20241218-1430.zip`
 
 ## Build Time
 
