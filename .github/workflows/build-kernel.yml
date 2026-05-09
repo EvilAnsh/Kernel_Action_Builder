@@ -1,4 +1,4 @@
-name: Build RM6785 Kernel
+name: Build RUI3 (salaa) Kernel
 
 on:
   workflow_dispatch:
@@ -57,11 +57,11 @@ jobs:
       USE_CCACHE: 1
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      KERNEL_REPO: "https://github.com/elohim-etz/android_kernel_realme_mt6785.git"
+      KERNEL_REPO: "https://github.com/EvilAnsh/android_kernel_realme_salaa.git"
       CLANG_REPO: "https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r547379.git"
-      ANYKERNEL_REPO: "https://github.com/elohim-etz/AK3.git"
-      ANYKERNEL_BRANCH: "mikuchan"
-      DEFCONFIG: "RM6785_defconfig"
+      ANYKERNEL_REPO: "https://github.com/kardebayan/AnyKernel3.git"
+      ANYKERNEL_BRANCH: "master"
+      DEFCONFIG: "salaa_defconfig"
 
     steps:
       # ── 0. Notify Telegram: Build Started ────────────────────────────────────
@@ -94,9 +94,9 @@ jobs:
           BRANCH_ESC=$(esc "${{ github.event.inputs.kernel_branch }}")
 
           MSG_FILE=$(mktemp)
-          printf "🔨 *Build Started — RM6785*\n"              >> "$MSG_FILE"
+          printf "🔨 *Build Started — salaa*\n"              >> "$MSG_FILE"
           printf "━━━━━━━━━━━━━━━━━━━━\n"                     >> "$MSG_FILE"
-          printf "📱 *Device*   \`RM6785 \(MT6785\)\`\n"      >> "$MSG_FILE"
+          printf "📱 *Device*   \`Realme 7/Narzo 20 Pro/Narzo 30 4G \(salaa\)\`\n"      >> "$MSG_FILE"
           printf "🔧 *Variant*  \`%s\`\n" "${VARIANT_ESC}"    >> "$MSG_FILE"
           printf "🌿 *Branch*   \`%s\`\n" "${BRANCH_ESC}"     >> "$MSG_FILE"
 
@@ -131,9 +131,9 @@ jobs:
           path: |
             /var/cache/apt/archives
             /var/lib/apt/lists
-          key: apt-rm6785-${{ runner.os }}-${{ hashFiles('.github/workflows/build-kernel.yml') }}
+          key: apt-salaa-${{ runner.os }}-${{ hashFiles('.github/workflows/build-kernel.yml') }}
           restore-keys: |
-            apt-rm6785-${{ runner.os }}-
+            apt-salaa-${{ runner.os }}-
 
       - name: Set up Build Environment
         run: |
@@ -149,9 +149,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.ccache
-          key: ccache-rm6785-${{ github.sha }}
+          key: ccache-salaa-${{ github.sha }}
           restore-keys: |
-            ccache-rm6785-
+            ccache-salaa-
 
       - name: Configure ccache
         run: |
@@ -305,7 +305,7 @@ jobs:
           start_time=$(date +%s)
 
           export PATH="${GITHUB_WORKSPACE}/clang/bin:${PATH}"
-          export KBUILD_BUILD_USER="elohim-etz"
+          export KBUILD_BUILD_USER="EvilAnsh"
           export KBUILD_BUILD_HOST="GitHub-Actions"
 
           mkdir -p out
@@ -351,18 +351,18 @@ jobs:
           if [ "${{ github.event.inputs.enable_ksu }}" == "true" ]; then
             if [ "${SUSFS_ENABLED}" == "true" ]; then
               if [ "${SUSFS_DRIVER_MODE}" == "no_ksu_driver" ]; then
-                ZIP_NAME="Miku-RM6785-${KSU_VARIANT}-SUSFS_NoDriver-${TIMESTAMP}"
+                ZIP_NAME="Stormbreaker-salaa-${KSU_VARIANT}-SUSFS_NoDriver-${TIMESTAMP}"
               else
-                ZIP_NAME="Miku-RM6785-${KSU_VARIANT}-SUSFS-${TIMESTAMP}"
+                ZIP_NAME="Stormbreaker-salaa-${KSU_VARIANT}-SUSFS-${TIMESTAMP}"
               fi
             else
-              ZIP_NAME="Miku-RM6785-${KSU_VARIANT}-${TIMESTAMP}"
+              ZIP_NAME="Stormbreaker-salaa-${KSU_VARIANT}-${TIMESTAMP}"
             fi
           elif [ "${{ github.event.inputs.enable_susfs }}" == "true" ]; then
             # Standalone SUSFS without any KSU driver
-            ZIP_NAME="Miku-RM6785-SUSFS_Standalone-${TIMESTAMP}"
+            ZIP_NAME="Stormbreaker-salaa-SUSFS_Standalone-${TIMESTAMP}"
           else
-            ZIP_NAME="Miku-RM6785-Stock-${TIMESTAMP}"
+            ZIP_NAME="Stormbreaker-salaa-Stock-${TIMESTAMP}"
           fi
 
           zip -r9 "${ZIP_NAME}.zip" . -x '*.git*' > /dev/null 2>&1
@@ -403,12 +403,12 @@ jobs:
           CAPTION_FILE=$(mktemp)
 
           # ── Header ────────────────────────────────────────────────────────────
-          printf "✅ *Build Successful — RM6785*\n" >> "$CAPTION_FILE"
+          printf "✅ *Build Successful — salaa*\n" >> "$CAPTION_FILE"
           printf "━━━━━━━━━━━━━━━━━━━━\n"           >> "$CAPTION_FILE"
           printf "\`%s\`\n\n"  "${ZIP_ESC}"         >> "$CAPTION_FILE"
 
           # ── Kernel info ───────────────────────────────────────────────────────
-          printf "📱 *Device*      \`RM6785 \(MT6785\)\`\n" >> "$CAPTION_FILE"
+          printf "📱 *Device*      \`Realme 7/Narzo 20 Pro/Narzo 30 4G \(salaa\)\`\n" >> "$CAPTION_FILE"
           printf "🔩 *Kernel*      \`%s\`\n" "${VER_ESC}"   >> "$CAPTION_FILE"
           printf "🌿 *Branch*      \`%s\`\n" "${BRANCH_ESC}" >> "$CAPTION_FILE"
           printf "🔖 *Commit*      \`%s\`\n" "${COMMIT_ESC}" >> "$CAPTION_FILE"
@@ -484,9 +484,9 @@ jobs:
           COMMIT_ESC=$(esc "${KERNEL_COMMIT:-N/A}")
 
           MSG_FILE=$(mktemp)
-          printf "❌ *Build Failed — RM6785*\n"                    >> "$MSG_FILE"
+          printf "❌ *Build Failed — salaa*\n"                    >> "$MSG_FILE"
           printf "━━━━━━━━━━━━━━━━━━━━\n"                          >> "$MSG_FILE"
-          printf "📱 *Device*   \`RM6785 \(MT6785\)\`\n"           >> "$MSG_FILE"
+          printf "📱 *Device*   \`Realme 7/Narzo 20 Pro/Narzo 30 4G \(salaa\)\`\n"           >> "$MSG_FILE"
           printf "🔧 *Variant*  \`%s\`\n" "${VARIANT_ESC}"         >> "$MSG_FILE"
           printf "🌿 *Branch*   \`%s\`\n" "${BRANCH_ESC}"          >> "$MSG_FILE"
           printf "🔖 *Commit*   \`%s\`\n" "${COMMIT_ESC}"          >> "$MSG_FILE"
