@@ -1,6 +1,6 @@
-# RM6785 Kernel Build Workflow
+# nemo Kernel Build Workflow
 
-Automated GitHub Actions workflow for building RM6785 (Realme 6/6i/6s/7/Narzo 20 Pro) kernel with optional KernelSU support.
+Automated GitHub Actions workflow for building nemo (Realme 6/6i(Indian)/6s/Narzo) kernel with optional KernelSU support.
 
 ## Features
 
@@ -14,11 +14,8 @@ Automated GitHub Actions workflow for building RM6785 (Realme 6/6i/6s/7/Narzo 20
 
 ## Supported Devices
 
-- Realme 6 (RMX2001)
-- Realme 6i (RMX2002)
-- Realme 6s (RMX2002)
-- Realme 7 (RMX2155)
-- Realme Narzo 20 Pro (RMX2161)
+- Realme 6 (RMX2001, RMX2002 and RMX2003)
+- Realme 6S / Realme 6i India / Realme Narzo (RMX2002)
 
 ## Setup
 
@@ -47,10 +44,10 @@ Edit `.github/workflows/build-kernel.yml` if you need to change:
 ### Manual Build
 
 1. Go to **Actions** tab in your repository
-2. Select **Build RM6785 Kernel** workflow
+2. Select **Build RUI2 (nemo) Kernel** workflow
 3. Click **Run workflow**
 4. Configure options:
-   - **Kernel Branch**: Enter the branch name (e.g., `main`, `master`, `lineage-21.0`)
+   - **Kernel Branch**: Enter the branch name (e.g., `bka-ksu`, `bka`)
    - **Enable KernelSU**: Check to enable KSU support
    - **KernelSU Variant**: Choose RKSU/xxKSU/SukiSU (only if KSU enabled)
    - **Enable SUSFS**: Check for SUSFS support (only works with RKSU/SukiSU)
@@ -66,16 +63,16 @@ Edit `.github/workflows/build-kernel.yml` if you need to change:
 
 Kernels are named automatically based on your configuration:
 
-- **Stock**: `Miku-RM6785-Stock-YYYYMMDD-HHMM.zip`
-- **KSU without SUSFS**: `Miku-RM6785-{VARIANT}-YYYYMMDD-HHMM.zip`
-- **KSU with SUSFS**: `Miku-RM6785-{VARIANT}-SUSFS-YYYYMMDD-HHMM.zip`
+- **Stock**: `Stormbreaker-nemo-Stock-YYYYMMDD-HHMM.zip`
+- **KSU without SUSFS**: `Stormbreaker-nemo-{VARIANT}-YYYYMMDD-HHMM.zip`
+- **KSU with SUSFS**: `Stormbreaker-nemo-{VARIANT}-SUSFS-YYYYMMDD-HHMM.zip`
 
 Examples:
-- `Miku-RM6785-Stock-20241218-1430.zip`
-- `Miku-RM6785-RKSU-20241218-1430.zip`
-- `Miku-RM6785-RKSU-SUSFS-20241218-1430.zip`
-- `Miku-RM6785-SukiSU-SUSFS-20241218-1430.zip`
-- `Miku-RM6785-xxKSU-20241218-1430.zip`
+- `Stormbreaker-nemo-Stock-20241218-1430.zip`
+- `Stormbreaker-nemo-RKSU-20241218-1430.zip`
+- `Stormbreaker-nemo-RKSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-nemo-SukiSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-nemo-xxKSU-20241218-1430.zip`
 
 ### KernelSU Variants
 
@@ -147,16 +144,16 @@ Compiled kernels are available as:
 
 1. **GitHub Artifacts**: In the workflow run (retained for 30 days)
 2. **Naming format**: 
-   - Stock: `Miku-RM6785-Stock-{TIMESTAMP}.zip`
-   - KSU: `Miku-RM6785-{VARIANT}-{TIMESTAMP}.zip`
-   - KSU+SUSFS: `Miku-RM6785-{VARIANT}-SUSFS-{TIMESTAMP}.zip`
+   - Stock: `Stormbreaker-nemo-Stock-{TIMESTAMP}.zip`
+   - KSU: `Stormbreaker-nemo-{VARIANT}-{TIMESTAMP}.zip`
+   - KSU+SUSFS: `Stormbreaker-nemo-{VARIANT}-SUSFS-{TIMESTAMP}.zip`
 
 Examples:
-- `Miku-RM6785-Stock-20241218-1430.zip`
-- `Miku-RM6785-RKSU-20241218-1430.zip`
-- `Miku-RM6785-RKSU-SUSFS-20241218-1430.zip`
-- `Miku-RM6785-xxKSU-20241218-1430.zip`
-- `Miku-RM6785-SukiSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-nemo-Stock-20241218-1430.zip`
+- `Stormbreaker-nemo-RKSU-20241218-1430.zip`
+- `Stormbreaker-nemo-RKSU-SUSFS-20241218-1430.zip`
+- `Stormbreaker-nemo-xxKSU-20241218-1430.zip`
+- `Stormbreaker-nemo-SukiSU-SUSFS-20241218-1430.zip`
 
 ## Build Time
 
