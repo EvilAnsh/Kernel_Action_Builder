@@ -337,7 +337,7 @@ jobs:
               LLVM_IAS=1 \
               CROSS_COMPILE=aarch64-linux-gnu- \
               CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-              CONFIG_NO_ERROR_ON_MISMATCH=y
+              CONFIG_NO_ERROR_ON_MISMATCH=y 2>&1 | tee build.log
 
           BUILD_DURATION=$(( $(date +%s) - start_time ))
           echo "BUILD_DURATION=${BUILD_DURATION}" >> $GITHUB_ENV
@@ -513,16 +513,25 @@ jobs:
 
           if [ -n "$NOTE" ]; then
             NOTE_ESC=$(esc "$NOTE")
-            printf "\n📝 *Note*  %s\n" "${NOTE_ESC}" >> "$MSG_FILE"
+            printf "\n📝 *Note* %s\n" "${NOTE_ESC}" >> "$MSG_FILE"
           fi
 
           printf "\n━━━━━━━━━━━━━━━━━━━━\n"                         >> "$MSG_FILE"
-          printf "[🔍 View Logs](%s)\n" "${RUN_URL}"                 >> "$MSG_FILE"
+          printf "[🔍 View Logs on GitHub](%s)\n" "${RUN_URL}"       >> "$MSG_FILE"
 
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d parse_mode="MarkdownV2" \
-            -d disable_web_page_preview=true \
-            --data-urlencode "text@${MSG_FILE}"
+          # Standard file upload logic
+          if [ -f "kernel/build.log" ]; then
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument" \
+              -F chat_id="${TELEGRAM_CHAT_ID}" \
+              -F parse_mode="MarkdownV2" \
+              -F "caption=<${MSG_FILE}" \
+              -F "document=@kernel/build.log"
+          else
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="${TELEGRAM_CHAT_ID}" \
+              -d parse_mode="MarkdownV2" \
+              -d disable_web_page_preview=true \
+              --data-urlencode "text@${MSG_FILE}"
+          fi
 
           rm -f "$MSG_FILE"
