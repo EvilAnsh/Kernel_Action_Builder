@@ -4,7 +4,7 @@ Automated GitHub Actions workflow for building nemo (Realme 6/6i(Indian)/6s/Narz
 
 ## Features
 
-- ✅ Multiple KernelSU variants support (RKSU, xxKSU, SukiSU)
+- ✅ Multiple KernelSU variants support (KernelSU-Next, RKSU, xxKSU, SukiSU)
 - ✅ Optional SUSFS support
 - ✅ Stock kernel build (no KSU)
 - ✅ Automated Telegram notifications
@@ -49,15 +49,15 @@ Edit `.github/workflows/build-kernel.yml` if you need to change:
 4. Configure options:
    - **Kernel Branch**: Enter the branch name (e.g., `bka-ksu`, `bka`)
    - **Enable KernelSU**: Check to enable KSU support
-   - **KernelSU Variant**: Choose RKSU/xxKSU/SukiSU (only if KSU enabled)
-   - **Enable SUSFS**: Check for SUSFS support (only works with RKSU/SukiSU)
+   - **KernelSU Variant**: Choose KernelSU-Next/RKSU/xxKSU/SukiSU/ReSukiSU (only if KSU enabled)
+   - **Enable SUSFS**: Check for SUSFS support (only works with KernelSU-Next/RKSU/SukiSU)
    - **Custom build note**: Optional notes (only shown if provided)
 
 ### Important Notes
 
 - **SUSFS requires KSU**: SUSFS can only be enabled when KSU is also enabled
 - **xxKSU doesn't support SUSFS**: If you select xxKSU, SUSFS will be ignored
-- **RKSU and SukiSU support SUSFS**: Both variants have full SUSFS support
+- **KernelSU-Next, RKSU and SukiSU support SUSFS**: Both variants have full SUSFS support
 
 ### Build Naming Convention
 
@@ -69,6 +69,8 @@ Kernels are named automatically based on your configuration:
 
 Examples:
 - `Stormbreaker-nemo-Stock-20241218-1430.zip`
+- `Stormbreaker-nemo-KernelSU-Next-20241218-1430.zip`
+- `Stormbreaker-nemo-KernelSU-Next-SUSFS-20241218-1430.zip`
 - `Stormbreaker-nemo-RKSU-20241218-1430.zip`
 - `Stormbreaker-nemo-RKSU-SUSFS-20241218-1430.zip`
 - `Stormbreaker-nemo-SukiSU-SUSFS-20241218-1430.zip`
@@ -79,6 +81,7 @@ Examples:
 | Variant | Description | SUSFS Support | Manager Download |
 |---------|-------------|---------------|------------------|
 | **Stock** | Stock kernel without KSU | ❌ | - |
+| **KernelSU-Next** | KernelSU-Next | ✅ Yes | [Download](https://github.com/KernelSU-Next/KernelSU-Next/releases/latest) |
 | **RKSU** | Rissu's KernelSU | ✅ Yes | [Download](https://github.com/rsuntk/KernelSU/releases/latest) |
 | **xxKSU** | backslashxx's KernelSU | ❌ No | [Download](https://github.com/backslashxx/KernelSU/releases/latest) |
 | **SukiSU** | SukiSU-Ultra | ✅ Yes | [Download](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases/latest) |
@@ -150,6 +153,8 @@ Compiled kernels are available as:
 
 Examples:
 - `Stormbreaker-nemo-Stock-20241218-1430.zip`
+- `Stormbreaker-nemo-KernelSU-Next-20241218-1430.zip`
+- `Stormbreaker-nemo-KernelSU-Next-SUSFS-20241218-1430.zip`
 - `Stormbreaker-nemo-RKSU-20241218-1430.zip`
 - `Stormbreaker-nemo-RKSU-SUSFS-20241218-1430.zip`
 - `Stormbreaker-nemo-xxKSU-20241218-1430.zip`
