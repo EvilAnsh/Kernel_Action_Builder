@@ -20,14 +20,15 @@ on:
         required: false
         type: choice
         options:
+          - 'KernelSU-Next'
           - 'RKSU'
           - 'xxKSU'
           - 'SukiSU'
           - 'ReSukiSU'
-        default: 'RKSU'
+        default: 'KernelSU-Next'
 
       enable_susfs:
-        description: 'Enable SUSFS (RKSU / SukiSU / ReSukiSU only)'
+        description: 'Enable SUSFS (KernelSU-Next / RKSU / SukiSU / ReSukiSU only)'
         required: false
         type: boolean
         default: false
@@ -200,6 +201,25 @@ jobs:
 
       # ── 7. KernelSU variants ───────────────────────────────────────────────────
 
+      # --- KernelSU-Next ---
+      # legacy-susfs -> KernelSU-Next + SUSFS (manual-hook; no CONFIG_KSU_MANUAL_HOOK needed)
+      # legacy              -> KernelSU-Next without SUSFS
+      - name: Setup KernelSU — KernelSU-Next
+        if: github.event.inputs.enable_ksu == 'true' && github.event.inputs.ksu_variant == 'KernelSU-Next'
+        working-directory: kernel
+        run: |
+          if [ "${{ github.event.inputs.enable_susfs }}" == "true" ]; then
+            curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy-susfs
+            echo "SUSFS_ENABLED=true"               >> $GITHUB_ENV
+            echo "KSU_BRANCH=legacy-susfs"     >> $GITHUB_ENV
+          else
+            curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
+            echo "SUSFS_ENABLED=false"              >> $GITHUB_ENV
+            echo "KSU_BRANCH=legacy"                  >> $GITHUB_ENV
+          fi
+          echo "KSU_VARIANT=KernelSU-Next"                                     >> $GITHUB_ENV
+          echo "KSU_REPO=https://github.com/KernelSU-Next/KernelSU-Next"          >> $GITHUB_ENV
+          
       # --- RKSU ---
       # susfs-rksu-master -> RKSU + SUSFS (manual-hook; no CONFIG_KSU_MANUAL_HOOK needed)
       # main              -> RKSU without SUSFS
