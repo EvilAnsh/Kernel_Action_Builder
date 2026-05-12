@@ -59,7 +59,7 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       KERNEL_REPO: "https://github.com/EvilAnsh/android_kernel_realme_RMX2001.git"
-      CLANG_REPO: "https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r547379.git"
+      CLANG_REPO: "https://gitlab.com/LeCmnGend/proton-clang.git"
       ANYKERNEL_REPO: "https://github.com/kardebayan/AnyKernel3.git"
       ANYKERNEL_BRANCH: "master"
       DEFCONFIG: "RMX2001_defconfig"
@@ -177,12 +177,12 @@ jobs:
         id: cache-clang
         with:
           path: clang
-          key: clang-r547379
+          key: proton-clang
 
       - name: Clone Clang Toolchain
         if: steps.cache-clang.outputs.cache-hit != 'true'
         run: |
-          git clone --depth=1 "$CLANG_REPO" clang
+          git clone --depth=1 "$CLANG_REPO" -b clang-13 clang
 
       # ── 6. AnyKernel3 ──────────────────────────────────────────────────────────
       - name: Cache AnyKernel3
