@@ -441,8 +441,14 @@ jobs:
             KSU_VARIANT_ESC=$(esc "${KSU_VARIANT}")
             KSU_BRANCH_ESC=$(esc "${KSU_BRANCH}")
             KSU_COMMIT_ESC=$(esc "${KSU_COMMIT}")
-            MANAGER_URL_ESC=$(esc "${KSU_REPO}/releases/latest")
 
+            # Conditionally route the manager download link for ReSukiSU
+            if [ "${KSU_VARIANT}" == "ReSukiSU" ]; then
+              MANAGER_DL="https://t.me/ReSukiSU/4"
+            else
+              MANAGER_DL="${KSU_REPO}/releases/latest"
+            fi
+            
             printf "🛡 *KernelSU*\n"                                               >> "$CAPTION_FILE"
             printf "   • *Variant*  \`%s\`\n"  "${KSU_VARIANT_ESC}"               >> "$CAPTION_FILE"
             printf "   • *Branch*   \`%s\`\n"  "${KSU_BRANCH_ESC}"                >> "$CAPTION_FILE"
@@ -458,7 +464,7 @@ jobs:
               printf "   • *SUSFS*    \`Disabled\`\n"                              >> "$CAPTION_FILE"
             fi
 
-            printf "   • *Manager*  [Download](%s)\n" "${KSU_REPO}/releases/latest" >> "$CAPTION_FILE"
+            printf "   • *Manager*  [Download](%s)\n" "${MANAGER_DL}" >> "$CAPTION_FILE"
           else
             printf "🛡 *KernelSU*   \`Stock \(No root\)\`\n"                       >> "$CAPTION_FILE"
           fi
