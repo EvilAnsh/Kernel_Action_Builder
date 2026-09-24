@@ -209,9 +209,9 @@ jobs:
         working-directory: kernel
         run: |
           if [ "${{ github.event.inputs.enable_susfs }}" == "true" ]; then
-            curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy-susfs
+            curl -LSs "https://gist.github.com/EvilAnsh/a57e99f5d8a8e7d22a59874d99752893/raw/14f0702e3004be12cd883785e189f86f0679c5f9/ksun.sh" | bash -s legacy-susfs-v2
             echo "SUSFS_ENABLED=true"               >> $GITHUB_ENV
-            echo "KSU_BRANCH=legacy-susfs"     >> $GITHUB_ENV
+            echo "KSU_BRANCH=legacy-susfs-v2"     >> $GITHUB_ENV
           else
             curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
             echo "SUSFS_ENABLED=false"              >> $GITHUB_ENV
