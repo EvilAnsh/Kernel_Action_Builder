@@ -24,11 +24,11 @@ on:
           - 'RKSU'
           - 'xxKSU'
           - 'SukiSU'
-          - 'ReSukiSU'
-        default: 'KernelSU-Next'
+          - 'BakaSU'
+        default: 'BakaSU'
 
       enable_susfs:
-        description: 'Enable SUSFS (KernelSU-Next / RKSU / SukiSU / ReSukiSU only)'
+        description: 'Enable SUSFS (KernelSU-Next / RKSU / SukiSU / BakaSU only)'
         required: false
         type: boolean
         default: false
@@ -273,16 +273,16 @@ jobs:
           echo "KSU_VARIANT=SukiSU"                                         >> $GITHUB_ENV
           echo "KSU_REPO=https://github.com/SukiSU-Ultra/SukiSU-Ultra"     >> $GITHUB_ENV
 
-      # --- ReSukiSU ---
+      # --- BakaSU ---
       # branch: main — SukiSU-Ultra downstream focused on Non-GKI stability
-      - name: Setup KernelSU — ReSukiSU
-        if: github.event.inputs.enable_ksu == 'true' && github.event.inputs.ksu_variant == 'ReSukiSU'
+      - name: Setup KernelSU — BakaSU
+        if: github.event.inputs.enable_ksu == 'true' && github.event.inputs.ksu_variant == 'BakaSU'
         working-directory: kernel
         run: |
-          curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main
-          echo "KSU_VARIANT=ReSukiSU"                                    >> $GITHUB_ENV
+          curl -LSs "https://raw.githubusercontent.com/Baka-SU/BakaSU/main/kernel/setup.sh" | bash -s main
+          echo "KSU_VARIANT=BakaSU"                                    >> $GITHUB_ENV
           echo "KSU_BRANCH=main"                                         >> $GITHUB_ENV
-          echo "KSU_REPO=https://github.com/ReSukiSU/ReSukiSU"          >> $GITHUB_ENV
+          echo "KSU_REPO=https://github.com/Baka-SU/BakaSU"          >> $GITHUB_ENV
           if [ "${{ github.event.inputs.enable_susfs }}" == "true" ]; then
             echo "SUSFS_ENABLED=true"               >> $GITHUB_ENV
           else
@@ -442,9 +442,10 @@ jobs:
             KSU_BRANCH_ESC=$(esc "${KSU_BRANCH}")
             KSU_COMMIT_ESC=$(esc "${KSU_COMMIT}")
             
-            # Conditionally route the manager download link for ReSukiSU
-            if [ "${KSU_VARIANT}" == "ReSukiSU" ]; then
-              MANAGER_DL="https://t.me/ReSukiSU/4"
+            # Conditionally route the manager download links
+            if [ "${KSU_VARIANT}" == "BakaSU" ]; then
+              MANAGER_DL="https://t.me/BakaSU_grp/4"
+              SPOOFED_MANAGER_DL="https://t.me/BakaSU_grp/5"
             else
               MANAGER_DL="${KSU_REPO}/releases/latest"
             fi
@@ -463,8 +464,14 @@ jobs:
             else
               printf "   • *SUSFS*    \`Disabled\`\n"                              >> "$CAPTION_FILE"
             fi
-
-            printf "   • *Manager*  [Download](%s)\n" "${MANAGER_DL}" >> "$CAPTION_FILE"
+            
+            # Output Manager links based on variant
+            if [ "${KSU_VARIANT}" == "BakaSU" ]; then
+              printf "   • *Manager*  [Download](%s)\n" "${MANAGER_DL}"             >> "$CAPTION_FILE"
+              printf "   • *Spoofed Manager*  [Download](%s)\n" "${SPOOFED_MANAGER_DL}" >> "$CAPTION_FILE"
+            else
+              printf "   • *Manager*  [Download](%s)\n" "${MANAGER_DL}"             >> "$CAPTION_FILE"
+            fi
           else
             printf "🛡 *KernelSU*   \`Stock \(No root\)\`\n"                       >> "$CAPTION_FILE"
           fi
