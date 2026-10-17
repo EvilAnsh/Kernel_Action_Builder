@@ -279,7 +279,7 @@ jobs:
         if: github.event.inputs.enable_ksu == 'true' && github.event.inputs.ksu_variant == 'BakaSU'
         working-directory: kernel
         run: |
-          curl -LSs "https://raw.githubusercontent.com/Baka-SU/BakaSU/main/kernel/setup.sh" | bash -s main
+          curl -LSs "https://raw.githubusercontent.com/Baka-SU/BakaSU/main/kernel/setup.sh" | bash -s sync-susfs
           echo "KSU_VARIANT=BakaSU"                                    >> $GITHUB_ENV
           echo "KSU_BRANCH=main"                                         >> $GITHUB_ENV
           echo "KSU_REPO=https://github.com/Baka-SU/BakaSU"          >> $GITHUB_ENV
